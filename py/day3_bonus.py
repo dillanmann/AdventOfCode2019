@@ -1,6 +1,21 @@
 # Run with `cat day3.in.txt | py day3.py`
 import sys
 
+def find_shortest_combined_intersections(intersections, paths):
+    shortest = sys.maxsize
+    for intersection in intersections:
+        distance = 0
+        for path in paths:
+            for coord in path:
+                distance += 1
+                if coord == intersection:
+                    break
+
+        if distance < shortest:
+            shortest = distance
+
+    return shortest
+
 def find_shortest_intersection(intersections):
     magnitudes = [abs(c[0]) + abs(c[1]) for c in intersections]
     magnitudes.sort()
@@ -46,3 +61,6 @@ if __name__ == "__main__":
     print("Intersections: \n{}".format('\n'.join([str(i) for i in intersections])))
     shortest = find_shortest_intersection(intersections)
     print("Shortest distance to intersection = {}".format(shortest))
+
+    shorted_combined = find_shortest_combined_intersections(intersections, wire_paths)
+    print("Shortest combined distance = {}".format(shorted_combined))
